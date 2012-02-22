@@ -1,0 +1,6 @@
+= simple_form_for [calendar, @event] do |f|
+  = f.input :started_on, as: :string, label: 'Start'
+  = f.input :ended_on,   as: :string, label: 'End', required: false, placeholder: 'defaults to start'
+  = f.input :name
+  = f.input :notes
+  = f.button :submit

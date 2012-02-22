@@ -1,0 +1,19 @@
+%h1 Listing events
+
+%ol
+  - events.each_with_next do |event, next_event|
+    %li
+      %ul
+        %li
+          = link_to calendar_event_path(calendar, event) do
+            = event.started_on
+            = event.ended_on
+            = event.name
+        - if next_event
+          %li.distance{id: "distance_between_events_#{event.id}_#{next_event.id}"}
+            = pluralize(event.days_to_event(next_event), 'day')
+
+%br
+
+= logger.debug 'before link'
+= link_to 'New Event', new_calendar_event_path

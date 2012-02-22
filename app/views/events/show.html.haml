@@ -1,0 +1,19 @@
+= show_for event do |s|
+  = s.attribute :name, if_blank: 'Untitled'
+  = s.attribute :started_on
+  = s.attribute :distance_from_now
+  = s.attribute :ended_on
+  = s.attribute :notes, if_blank: ''
+  = s.attribute :later_events do
+    %ul
+      - calendar.events.after(event.started_on).each do |later_event|
+        %li
+          = later_event.name if later_event.name
+          = smart_dates(later_event)
+          = "(#{later_event.human_distance_from_now})"
+
+= link_to 'Edit', edit_calendar_event_path(event)
+|
+= link_to 'Back', calendar_events_path
+|
+= link_to 'Destroy', calendar_event_path(calendar, event), :confirm => 'Are you sure?', :method => :delete
